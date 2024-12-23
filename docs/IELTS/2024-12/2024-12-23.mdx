@@ -1,0 +1,41 @@
+---
+sidebar_position: 1
+---
+
+You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
+
+The command also installs all necessary dependencies you need to run Docusaurus.
+
+
+
+import React, { useState } from 'react';
+
+export const TextInput = () => {
+  const [inputValue, setInputValue] = useState('')
+
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+  };
+
+  return (
+    <div>
+      <label htmlFor="input">请输入文本：</label>
+      <input
+        type="text"
+        id="input"
+        value={inputValue}  
+        onChange={handleInputChange} 
+        placeholder="请输入内容"
+        style={{
+          padding: '8px',
+          borderRadius: '4px',
+          border: '1px solid #ccc',
+          width: '200px',
+        }}
+      />
+      <p>当前输入值: {inputValue}</p>
+    </div>
+  );
+};
+
+<TextInput></TextInput>
