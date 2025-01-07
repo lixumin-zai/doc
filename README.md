@@ -4,7 +4,7 @@ Personal development record website. This website is built using [Docusaurus](ht
 
 ### Installation
 
-```
+```shell
 npm install 
 
 npm run dev
@@ -19,3 +19,9 @@ In chrome:
 
 
 ![alt text](workflow.png)
+
+### Save
+
+```shell
+nohup watch -n 600 sh ./git_work.sh &
+```
