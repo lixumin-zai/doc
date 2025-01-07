@@ -16,4 +16,4 @@ working_directory="/root/project/doc/lismin"
   
   echo "End git operation at $(date)"
   echo "-----------------------------------"
-} >> ./git.log 2>&1
+} >> /root/project/doc/lismin/git.log 2>&1
