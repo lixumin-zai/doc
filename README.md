@@ -23,5 +23,5 @@ In chrome:
 ## Save
 
 ```shell
-nohup watch -n 600 sh ./git_work.sh &
+nohup watch -n 600 sh ./git_work.sh > git.log &
 ```
