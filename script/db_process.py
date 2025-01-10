@@ -7,7 +7,7 @@ class Database:
         self.cursor = self.conn.cursor()
         self.create_table()
 
-    def create_table(self):
+    def create_sentence_table(self):
         self.cursor.execute('''
         CREATE TABLE IF NOT EXISTS sentence (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -19,5 +19,6 @@ class Database:
 
 
 if __name__ == "__main__":
-    
-    
+    db = Database("./db.db")
+    db.create_sentence_table()
+    words = ["collision"]
