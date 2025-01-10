@@ -12,9 +12,12 @@ class Database:
         CREATE TABLE IF NOT EXISTS sentence (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             words TEXT,
-            sentence TECT
+            sentence TEXT
         )
         ''')
         self.conn.commit()
 
+
+if __name__ == "__main__":
+    
     
