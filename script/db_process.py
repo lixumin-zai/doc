@@ -21,4 +21,4 @@ class Database:
 if __name__ == "__main__":
     db = Database("./db.db")
     db.create_sentence_table()
-    words = ["collision"]
+    words = ["collision", "grip"]
