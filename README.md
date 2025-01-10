@@ -1,8 +1,8 @@
-# Website
+## Introduction
 
 Personal development record website. This website is built using [Docusaurus](https://docusaurus.io/)
 
-### Installation
+## Installation
 
 ```shell
 npm install 
@@ -11,7 +11,7 @@ npm run dev
 ```
 > Visit the website http://localhost:3000/
 
-### Workflow
+## Workflow
 
 In chrome:
 - vscode-server edite
@@ -20,7 +20,7 @@ In chrome:
 
 ![alt text](workflow.png)
 
-### Save
+## Save
 
 ```shell
 nohup watch -n 600 sh ./git_work.sh &

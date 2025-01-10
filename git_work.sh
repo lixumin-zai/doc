@@ -12,7 +12,7 @@ working_directory="/root/project/doc/lismin"
   
   # 提交并推送
   git commit -m "$commit_message"
-  git push
+  git push origin main
   
   echo "End git operation at $(date)"
   echo "-----------------------------------"
