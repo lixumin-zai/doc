@@ -109,7 +109,7 @@ def create_file():
         print(day_text)
         current_date += timedelta(days=1)  # 增加一天
         os.path.exists(root+month_text) or os.makedirs(root+month_text)
-        gen_sentence = "\n<hr>\n".join([text[1]for text in data[i:i+10]])
+        gen_sentence = "\n\n___\n\n".join([text[2]for text in data[i:i+10]])
         with open(root+month_text+f"/{day_text}.mdx", "w") as f:
             f.write(gen_sentence)
         i+=1
