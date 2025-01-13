@@ -61,6 +61,27 @@ class Chator:
         )
         return response.choices[0].message.content, response.usage.completion_tokens
 
+from volcenginesdkarkruntime import Ark
+class doubao:
+    def __init__(self):
+        client = Ark(
+            base_url="https://ark.cn-beijing.volces.com/api/v3",
+            region="cn-beijing"
+        )
+
+    def chat(self):
+        completion = client.chat.completions.create(
+            model="ep-20250113150931-d9mt5",
+            messages = [
+                {"role": "system", "content": "你是雅思老师"},
+                {"role": "user", "content": "常见的十字花科植物有哪些？"},
+            ],
+            # 免费开启推理会话应用层加密，访问 https://www.volcengine.com/docs/82379/1389905 了解更多
+            extra_headers={'x-is-encrypted': 'true'},
+        )
+        print(completion.choices[0].message.content)
+            
+
 import random
 from datetime import datetime, timedelta
 import os
@@ -77,7 +98,9 @@ def get_words():
     return words
 
 def doubao_gen(words):
-    str(words)
+    text = str(words)[1:-1]
+
+
 
 def auto_create():
     root = "/root/project/doc/lismin/docs/IELTS/"
