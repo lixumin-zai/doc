@@ -89,16 +89,7 @@ from db_process import Database
 db = Database("./sentence.db")
 chat = doubao()
 
-def get_words():
-    with open("./merge.json", "r") as f:
-        words = json.load(f)
-    words = [words[i:i+10] for i in range(0, len(words)+1, 10)]
-    # for i in range(10):
-    #     print(words.pop(0))
-    return words
-    
-
-def auto_create():
+def create_file():
     root = "/root/project/doc/lismin/docs/IELTS/"
 
     # 设置2025年1月1日作为起始日期
@@ -108,24 +99,40 @@ def auto_create():
     words_list = get_words()
     # 使用 for 循环遍历所有日期
     current_date = start_date
+
+    db.get_data()
     while current_date <= end_date:
         month_text = current_date.strftime("%Y-%m")
         day_text = current_date.strftime("%Y-%m-%d")  # 输出日期，格式为 YYYY-MM-DD
+        print(day_text)
         current_date += timedelta(days=1)  # 增加一天
         os.path.exists(root+month_text) or os.makedirs(root+month_text)
-        words = words_list.pop(0)
-        text = str(words)[1:-1]
-        gen_sentence = chat(text)
-        db.create_data(
-            words=str(words),
-            sentence=gen_sentence
-        )
+        
         with open(root+month_text+f"/{day_text}.mdx", "w") as f:
             f.write(gen_sentence)
         break
 
+def get_words():
+    with open("./merge.json", "r") as f:
+        words = json.load(f)
+    words = [words[i:i+10] for i in range(0, len(words)+1, 10)]
+    # for i in range(10):
+    #     print(words.pop(0))
+    return words
 
-
+def auto_create():
+    words_list = get_words()
+    while True:
+        words = words_list.pop(0)
+        text = str(words)[1:-1]
+        gen_sentence = chat(text)
+        print(len(words_list), text)
+        db.create_data(
+            words=str(words),
+            sentence=gen_sentence
+        )
+        if len(words_list) == 0:
+            break
 
 if __name__ == "__main__":
     auto_create()
