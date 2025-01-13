@@ -79,8 +79,9 @@ def auto_create():
     while current_date <= end_date:
         time_text = current_date.strftime("%Y-%m-%d")  # 输出日期，格式为 YYYY-MM-DD
         current_date += timedelta(days=1)  # 增加一天
-
         
+
+
 
 
 if __name__ == "__main__":
