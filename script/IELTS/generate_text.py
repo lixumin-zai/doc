@@ -76,6 +76,9 @@ def get_words():
     #     print(words.pop(0))
     return words
 
+def doubao_gen(words):
+    str(words)
+
 def auto_create():
     root = "/root/project/doc/lismin/docs/IELTS/"
 
