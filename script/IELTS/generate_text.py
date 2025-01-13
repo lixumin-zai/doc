@@ -64,22 +64,22 @@ class Chator:
 from volcenginesdkarkruntime import Ark
 class doubao:
     def __init__(self):
-        client = Ark(
+        self.client = Ark(
             base_url="https://ark.cn-beijing.volces.com/api/v3",
             region="cn-beijing"
         )
 
-    def chat(self):
-        completion = client.chat.completions.create(
+    def __call__(self, text):
+        completion = self.client.chat.completions.create(
             model="ep-20250113150931-d9mt5",
             messages = [
-                {"role": "system", "content": "你是雅思老师"},
-                {"role": "user", "content": "常见的十字花科植物有哪些？"},
+                {"role": "system", "content": "你是一个见多识广的雅思老师"},
+                {"role": "user", "content": f"将{text}组个雅思难度的句子，并输出中文释义，这些词使用**包裹"},
             ],
             # 免费开启推理会话应用层加密，访问 https://www.volcengine.com/docs/82379/1389905 了解更多
             extra_headers={'x-is-encrypted': 'true'},
         )
-        print(completion.choices[0].message.content)
+        return completion.choices[0].message.content
             
 
 import random
@@ -87,7 +87,7 @@ from datetime import datetime, timedelta
 import os
 from db_process import Database
 db = Database("./sentence.db")
-
+chat = doubao()
 
 def get_words():
     with open("./merge.json", "r") as f:
@@ -96,11 +96,7 @@ def get_words():
     # for i in range(10):
     #     print(words.pop(0))
     return words
-
-def doubao_gen(words):
-    text = str(words)[1:-1]
-
-
+    
 
 def auto_create():
     root = "/root/project/doc/lismin/docs/IELTS/"
@@ -118,24 +114,19 @@ def auto_create():
         current_date += timedelta(days=1)  # 增加一天
         os.path.exists(root+month_text) or os.makedirs(root+month_text)
         words = words_list.pop(0)
-        gen_sentence = doubao_gen(words)
+        text = str(words)[1:-1]
+        gen_sentence = chat(text)
         db.create_data(
-            words="&&".join(words),
+            words=str(words),
             sentence=gen_sentence
         )
-
         with open(root+month_text+f"/{day_text}.mdx", "w") as f:
-            f.write("""
-
-The **ballet** troupe, operating on a shoestring **budget**, found themselves in a tricky situation. There was a **degradation** in the enthusiasm of the audience, perhaps due to the repetitive **pattern** of their shows. To address this, they decided to toss out the old **generalisation** that simplicity was best and embrace something **exotic**. They brought in a choreographer to **refine** the routines, adding in new and exciting movements. The dancers worked hard to improve their **grip** on these complex steps. As a result, the tickets sales started to **soar**. But this transformation didn't come without a **toll**; the stress on the dancers was high, and the management had to **soften** the training regime a bit to keep everyone's spirits up. 
-
-中文释义：这个靠微薄预算运营的**芭蕾舞**团陷入了棘手的境地。观众的热情有所**减退**，可能是因为他们演出的**模式**过于重复。为了解决这个问题，他们决定摒弃 “简约至上” 这种旧有的**普遍观念**，去接纳一些充满**异域风情**的元素。他们请来一位编舞师对舞蹈动作进行**优化**，加入了新颖又刺激的舞步。舞者们努力提升对这些复杂舞步的**掌控**能力。结果，门票销量开始**飙升**。但这种转变并非毫无**代价**；舞者们承受的压力很大，管理层不得不稍微**放宽**训练制度，以此来鼓舞大家的士气 。  
-
-""")
+            f.write(gen_sentence)
         break
 
 
 
 
 if __name__ == "__main__":
-    get_words()
+    auto_create()
+
