@@ -64,7 +64,13 @@ class Chator:
 import random
 from datetime import datetime, timedelta
 import os
+from db_process import Database
+db = Database("./sentence.db")
 
+
+def get_words():
+    with open("./merge.json", "r") as f:
+        json.load(f)
 
 def auto_create():
     root = "/root/project/doc/lismin/docs/IELTS/"
@@ -81,6 +87,11 @@ def auto_create():
         day_text = current_date.strftime("%Y-%m-%d")  # 输出日期，格式为 YYYY-MM-DD
         current_date += timedelta(days=1)  # 增加一天
         os.path.exists(root+month_text) or os.makedirs(root+month_text)
+
+        db.create_data(
+            words=""
+        )
+
         with open(root+month_text+f"/{day_text}.mdx", "w") as f:
             f.write("""
 
