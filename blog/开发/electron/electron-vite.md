@@ -10,3 +10,4 @@ npm create @quick-start/electron@latest
 ```
 ![图片](https://image-1259491855.cos.ap-beijing.myqcloud.com/doc/2025/1/13/30934b978998559325a29bdd0e33efe9.jpg)
 
+<!-- truncate -->
