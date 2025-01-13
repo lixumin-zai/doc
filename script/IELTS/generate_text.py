@@ -100,17 +100,19 @@ def create_file():
     # 使用 for 循环遍历所有日期
     current_date = start_date
 
-    db.get_data()
+    data = db.get_data()
+    i= 0
     while current_date <= end_date:
+        
         month_text = current_date.strftime("%Y-%m")
         day_text = current_date.strftime("%Y-%m-%d")  # 输出日期，格式为 YYYY-MM-DD
         print(day_text)
         current_date += timedelta(days=1)  # 增加一天
         os.path.exists(root+month_text) or os.makedirs(root+month_text)
-        
+        gen_sentence = "\n<hr>\n".join([text[1]for text in data[i:i+10]])
         with open(root+month_text+f"/{day_text}.mdx", "w") as f:
             f.write(gen_sentence)
-        break
+        i+=1
 
 def get_words():
     with open("./merge.json", "r") as f:
@@ -135,5 +137,5 @@ def auto_create():
             break
 
 if __name__ == "__main__":
-    auto_create()
+    create_file()
 
