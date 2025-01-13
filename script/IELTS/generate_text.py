@@ -70,7 +70,11 @@ db = Database("./sentence.db")
 
 def get_words():
     with open("./merge.json", "r") as f:
-        json.load(f)
+        words = json.load(f)
+    words = [words[i:i+10] for i in range(0, len(words)+1, 10)]
+    # for i in range(10):
+    #     print(words.pop(0))
+    return words
 
 def auto_create():
     root = "/root/project/doc/lismin/docs/IELTS/"
@@ -79,7 +83,7 @@ def auto_create():
     start_date = datetime(2025, 1, 1)
     # 设置2025年12月31日作为结束日期
     end_date = datetime(2025, 1, 27)
-
+    words_list = get_words()
     # 使用 for 循环遍历所有日期
     current_date = start_date
     while current_date <= end_date:
@@ -87,9 +91,11 @@ def auto_create():
         day_text = current_date.strftime("%Y-%m-%d")  # 输出日期，格式为 YYYY-MM-DD
         current_date += timedelta(days=1)  # 增加一天
         os.path.exists(root+month_text) or os.makedirs(root+month_text)
-
+        words = words_list.pop(0)
+        gen_sentence = doubao_gen(words)
         db.create_data(
-            words=""
+            words="&&".join(words),
+            sentence=gen_sentence
         )
 
         with open(root+month_text+f"/{day_text}.mdx", "w") as f:
@@ -106,4 +112,4 @@ The **ballet** troupe, operating on a shoestring **budget**, found themselves in
 
 
 if __name__ == "__main__":
-    auto_create()
+    get_words()
