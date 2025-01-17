@@ -20,7 +20,7 @@ function onError(error) {
   console.error(error);
 }
 
-function Editor() {
+export function Editor() {
   const initialConfig = {
     namespace: 'MyEditor',
     theme,
